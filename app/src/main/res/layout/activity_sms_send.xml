@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:padding="16sp"
+    tools:context=".smsSend"
+    >
+
+    <TextView
+        android:id="@+id/SMS"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Mensagem"
+        android:textAlignment="center"
+        android:textSize="34sp" />
+
+    <EditText
+        android:id="@+id/smsFone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:drawable/editbox_background"
+        android:ems="10"
+        android:hint="Insira o número"
+        android:inputType="phone"
+        android:padding="12sp" />
+
+    <EditText
+        android:id="@+id/smsMsg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8sp"
+        android:background="@android:drawable/editbox_background"
+        android:ems="10"
+        android:gravity="top"
+        android:hint="Insira a mensagem"
+        android:inputType="textMultiLine"
+        android:minLines="6" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16sp"
+        android:paddingTop="16sp"
+        >
+
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <Button
+            android:id="@+id/btn_reset"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Reset" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <Button
+            android:id="@+id/btn_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Status" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <Button
+            android:id="@+id/btn_statussc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Statusc" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnEnviar"
+        android:layout_width="263dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16sp"
+        android:text="Enviar" />
+
+    <Button
+        android:id="@+id/btn_voltar_sms"
+        android:layout_width="265dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24sp"
+        android:onClick="fechar_tela"
+        android:text="Voltar" />
+
+</LinearLayout>
