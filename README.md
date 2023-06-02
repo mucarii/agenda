@@ -38,5 +38,6 @@ Contribuições são bem-vindas! Se você encontrar algum problema, tiver sugest
 
 Nome: Murilo Calore
 E-mail: murilo.l.calore.r@gmail.com
+
 LinkedIn:(https://www.linkedin.com/in/murilo-calore-b1bb94207/).
 
