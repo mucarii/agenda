@@ -39,8 +39,8 @@ public class smsSend extends AppCompatActivity {
         btn_voltar = findViewById(R.id.btn_voltar_sms);
 
         // Get phone number from the previous activity and set it in the phone number EditText
-        String numeroTelefone = getIntent().getStringExtra("fone");
-        smsFone.setText(numeroTelefone);
+        String phoneNumber = getIntent().getStringExtra("fone");
+        smsFone.setText(phoneNumber);
 
         // Set click listeners for buttons
         btnEnviar.setOnClickListener(new View.OnClickListener() {

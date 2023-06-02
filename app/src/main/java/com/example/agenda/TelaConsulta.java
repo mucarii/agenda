@@ -103,10 +103,13 @@ public class TelaConsulta extends AppCompatActivity {
     }
 
     public void abrir_tela_enviar(View view) {
+        String phoneNumber = et_fone.getText().toString();
 
-        Intent it_tela_sms_send = new Intent(this, smsSend.class);
-        startActivity(it_tela_sms_send);
+        Intent intent = new Intent(this, smsSend.class);
+        intent.putExtra("fone", phoneNumber);
+        startActivity(intent);
     }
+
 
 
 
