@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class Agenda extends AppCompatActivity {
 
     EditText et_instituicao, et_endereco, et_nome, et_telefone;
-    Button btn_salvar, btn_consultar, btn_mesg;
+    Button btn_salvar, btn_consultar;
 
 
 
@@ -29,7 +29,6 @@ public class Agenda extends AppCompatActivity {
         et_telefone = findViewById(R.id.et_telefone);
         btn_consultar = findViewById(R.id.btn_consultar);
         btn_salvar = findViewById(R.id.btn_salvar);
-        btn_mesg = findViewById(R.id.btn_mensg);
 
 
         BancoDados.abrirBanco(this);
@@ -64,11 +63,6 @@ public class Agenda extends AppCompatActivity {
         startActivity(it_tela_conslta);
     }
 
-    public void abrir_tela_mesagem(View view) {
-
-        Intent it_tela_sms_recebidos = new Intent(this, TelaSMSRecebidos.class);
-        startActivity(it_tela_sms_recebidos);
-    }
 
 
     public void fechar_tela(View view) {

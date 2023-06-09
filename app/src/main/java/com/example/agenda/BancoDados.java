@@ -146,5 +146,36 @@ public class BancoDados {
         return db.rawQuery(query, null);
     }
 
+    public static String getNomeContatoByNumero(String phoneNumber, Context context) {
+        // Consulte o banco de dados do aplicativo para obter o nome do contato com base no número de telefone
+        // Substitua essa parte do código com a lógica de consulta ao banco de dados do aplicativo
+        // Retorne o nome do contato correspondente ou null se não for encontrado
+
+        // Exemplo:
+        SQLiteDatabase db = null;
+        Cursor cursor = null;
+        try {
+            db = context.openOrCreateDatabase("agendadb", Context.MODE_PRIVATE, null);
+            String[] projection = {"nome"};
+            String selection = "fone = ?";
+            String[] selectionArgs = {phoneNumber};
+            cursor = db.query("contatos", projection, selection, selectionArgs, null, null, null);
+            if (cursor != null && cursor.moveToFirst()) {
+                return cursor.getString(cursor.getColumnIndex("nome"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+            if (db != null) {
+                db.close();
+            }
+        }
+
+        return null;
+    }
+
 
 }

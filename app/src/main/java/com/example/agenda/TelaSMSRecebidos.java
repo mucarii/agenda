@@ -22,6 +22,7 @@ public class TelaSMSRecebidos extends AppCompatActivity {
     private static final int PERMISSION_REQUEST_READ_CONTACTS = 2;
 
     private TextView textViewSMS;
+    private String phoneNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +30,9 @@ public class TelaSMSRecebidos extends AppCompatActivity {
         setContentView(R.layout.activity_tela_sms_recebidos);
 
         textViewSMS = findViewById(R.id.textView_sms);
+
+        // Obtém o número do telefone da intenção
+        phoneNumber = getIntent().getStringExtra("phoneNumber");
 
         // Verifique se a permissão READ_SMS já foi concedida
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_SMS) == PackageManager.PERMISSION_GRANTED) {
@@ -87,10 +91,11 @@ public class TelaSMSRecebidos extends AppCompatActivity {
                 String address = cursor.getString(cursor.getColumnIndex("address"));
                 String body = cursor.getString(cursor.getColumnIndex("body"));
 
-                boolean isNumberSaved = BancoDados.isNumeroCadastrado(address, this);
+                if (address.equals(phoneNumber)) {
+                    // Obtém o nome do contato com base no número
+                    String contactName = getContactByNumber(address);
 
-                if (isNumberSaved) {
-                    smsBuilder.append("From: ").append(address).append("\n");
+                    smsBuilder.append("From: ").append(contactName).append("\n");
                     smsBuilder.append("Message: ").append(body).append("\n\n");
                 }
             } while (cursor.moveToNext());
@@ -102,7 +107,6 @@ public class TelaSMSRecebidos extends AppCompatActivity {
             textViewSMS.setText("Nenhum SMS recebido.");
         }
     }
-
 
     private String getContactByNumber(String phoneNumber) {
         String contactName = phoneNumber; // Se o nome do contato não for encontrado, use o número como nome padrão
