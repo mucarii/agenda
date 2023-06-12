@@ -8,6 +8,10 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.view.ContextMenu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +27,7 @@ public class TelaSMSRecebidos extends AppCompatActivity {
 
     private TextView textViewSMS;
     private String phoneNumber;
+    private int selectedMessagePosition; // Posição da mensagem selecionada
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +39,18 @@ public class TelaSMSRecebidos extends AppCompatActivity {
         // Obtém o número do telefone da intenção
         phoneNumber = getIntent().getStringExtra("phoneNumber");
 
+        // Registrar o TextView para exibir o menu de contexto (opções de exclusão)
+        registerForContextMenu(textViewSMS);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Verifique as permissões necessárias
+        checkPermissions();
+    }
+
+    private void checkPermissions() {
         // Verifique se a permissão READ_SMS já foi concedida
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_SMS) == PackageManager.PERMISSION_GRANTED) {
             // A permissão já foi concedida, verifique a permissão READ_CONTACTS
@@ -106,6 +123,16 @@ public class TelaSMSRecebidos extends AppCompatActivity {
         } else {
             textViewSMS.setText("Nenhum SMS recebido.");
         }
+
+        // Definir um clique longo no TextView para exibir o menu de contexto
+        textViewSMS.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                // Registrar a posição da mensagem selecionada
+                selectedMessagePosition = textViewSMS.getSelectionStart();
+                return false;
+            }
+        });
     }
 
     private String getContactByNumber(String phoneNumber) {
@@ -123,5 +150,39 @@ public class TelaSMSRecebidos extends AppCompatActivity {
         }
 
         return contactName;
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        getMenuInflater().inflate(R.menu.menu_contextual, menu); // Inflar o layout do menu de contexto
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.menu_item_excluir) {
+            // Excluir a mensagem selecionada
+            excluirMensagemSelecionada();
+            return true;
+        }
+        return super.onContextItemSelected(item);
+    }
+
+    private void excluirMensagemSelecionada() {
+        String smsText = textViewSMS.getText().toString();
+        int start = textViewSMS.getSelectionStart();
+        int end = textViewSMS.getSelectionEnd();
+
+        // Verificar se a posição da mensagem selecionada está dentro dos limites
+        if (start >= 0 && end <= smsText.length()) {
+            // Remover a mensagem selecionada do texto
+            String updatedText = smsText.substring(0, start) + smsText.substring(end);
+
+            // Atualizar o TextView com o texto modificado
+            textViewSMS.setText(updatedText);
+
+            // Exibir uma mensagem de confirmação
+            Toast.makeText(this, "Mensagem excluída.", Toast.LENGTH_SHORT).show();
+        }
     }
 }
