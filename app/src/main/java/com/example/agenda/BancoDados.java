@@ -177,5 +177,21 @@ public class BancoDados {
         return null;
     }
 
+    public static boolean excluirContatoDoBancoDeDados(String phoneNumber, Context context) {
+        abrirBanco((Activity) context);
+        try {
+            String whereClause = "fone = ?";
+            String[] whereArgs = {phoneNumber};
+            int rowsAffected = db.delete("contatosbd", whereClause, whereArgs);
+            return rowsAffected > 0;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return false;
+        } finally {
+            fecharDB();
+        }
+    }
+
+
 
 }

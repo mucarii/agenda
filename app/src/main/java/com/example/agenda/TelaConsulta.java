@@ -2,12 +2,19 @@ package com.example.agenda;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ContentResolver;
+import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
+import android.view.ContextMenu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -18,12 +25,15 @@ public class TelaConsulta extends AppCompatActivity {
     Cursor cursor;
 
     EditText et_instiuicao, et_nome, et_endereco, et_fone;
-    Button btn_prox, btn_voltar, btn_anterior, btn_lermsg;
+    Button btn_prox, btn_voltar, btn_anterior, btn_lermsg, btn_excluir;
+
+    private int selectedMessagePosition; // Alterado para selectedMessagePosition
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tela_consulta);
+        cursor = BancoDados.buscarDados(this);
 
         et_nome = findViewById(R.id.et_nome_consulta);
         et_instiuicao = findViewById(R.id.et_instituicao_consulta);
@@ -33,6 +43,9 @@ public class TelaConsulta extends AppCompatActivity {
         btn_prox = findViewById(R.id.btn_prox_consulta);
         btn_voltar = findViewById(R.id.btn_voltar_consulta);
         btn_lermsg = findViewById(R.id.btn_lermsg);
+        btn_excluir = findViewById(R.id.btn_excluir);
+
+        abrirBanco();
 
         cursor = BancoDados.buscarDados(this);
         if (cursor.getCount() != 0) {
@@ -61,6 +74,13 @@ public class TelaConsulta extends AppCompatActivity {
             public void onClick(View v) {
                 String phoneNumber = et_fone.getText().toString();
                 abrirTelaMensagens(phoneNumber);
+            }
+        });
+
+        btn_excluir.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                excluirContato();
             }
         });
     }
@@ -152,5 +172,22 @@ public class TelaConsulta extends AppCompatActivity {
             }
         }
         return null;
+    }
+
+    public void excluirContato() {
+        String phoneNumber = et_fone.getText().toString();
+        boolean isContactDeleted = BancoDados.excluirContatoDoBancoDeDados(phoneNumber, this);
+        if (isContactDeleted) {
+            Toast.makeText(this, "Contato excluído com sucesso", Toast.LENGTH_SHORT).show();
+            // Atualize o cursor após a exclusão
+            cursor = BancoDados.buscarDados(this);
+            if (cursor.getCount() != 0) {
+                mostrarDados();
+            } else {
+                CxMsg.mostrar("Nenhum registro encontrado", this);
+            }
+        } else {
+            Toast.makeText(this, "Erro ao excluir contato", Toast.LENGTH_SHORT).show();
+        }
     }
 }

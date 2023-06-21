@@ -36,6 +36,14 @@ public class TelaSMSRecebidos extends AppCompatActivity {
 
         textViewSMS = findViewById(R.id.textView_sms);
 
+        textViewSMS.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                v.showContextMenu();
+                return true;
+            }
+        });
+
         // Obtém o número do telefone da intenção
         phoneNumber = getIntent().getStringExtra("phoneNumber");
 

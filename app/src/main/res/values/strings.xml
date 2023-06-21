@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Agenda</string>
+    <string name="contato_icon_description">ícone de contato</string>
+
 </resources>

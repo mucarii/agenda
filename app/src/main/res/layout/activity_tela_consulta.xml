@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/bot"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:gravity="center"
-    android:padding="15sp"
+    android:orientation="vertical"
     tools:context=".TelaConsulta">
+
+
+    <TextView
+        android:id="@+id/Consulta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Consulta"
+        android:textAlignment="center"
+        android:textSize="34sp" />
 
     <LinearLayout
         android:id="@+id/base_consulta"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/Consulta"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Consulta"
-            android:textAlignment="center"
-            android:textSize="34sp" />
+        android:orientation="vertical"
+        android:padding="15sp">
 
         <LinearLayout
             android:id="@+id/instituicao_consulta"
@@ -41,7 +41,6 @@
                 android:id="@+id/et_instituicao_consulta"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:ems="10"
                 android:inputType="text"
                 android:textAlignment="viewStart"
@@ -52,7 +51,7 @@
         <LinearLayout
             android:id="@+id/endereco_consulta"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <TextView
@@ -124,22 +123,34 @@
         <LinearLayout
             android:id="@+id/botoes_consulta"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <Space
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
                 android:layout_weight="1" />
 
             <Button
                 android:id="@+id/btn_anterior_consulta"
-                android:layout_width="wrap_content"
+                android:layout_width="118dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16sp"
                 android:layout_weight="1"
                 android:onClick="registroAnterior"
-                android:layout_marginTop="16sp"
                 android:text="Anterior" />
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <Button
+                android:id="@+id/btn_excluir"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16sp"
+                android:text="Excluir" />
 
             <Space
                 android:layout_width="wrap_content"
@@ -150,21 +161,22 @@
                 android:id="@+id/btn_prox_consulta"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16sp"
                 android:layout_weight="1"
                 android:onClick="proximoRegistro"
-                android:layout_marginTop="16sp"
                 android:text="Próximo" />
 
             <Space
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
                 android:layout_weight="1" />
+
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/botao_voltar_consulta"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <Button
@@ -181,18 +193,18 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16sp"
                 android:onClick="abrir_tela_mesagem"
-                android:text="Mensagem" />
+                android:text="Ler mensagem" />
 
             <Button
                 android:id="@+id/btn_voltar_consulta"
-                android:layout_marginTop="16sp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:onClick="fechar_tela"
+                android:layout_marginTop="16sp"
+                android:onClick="fecharTela"
                 android:text="Voltar" />
 
         </LinearLayout>
 
     </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
